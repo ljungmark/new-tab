@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>New Tab</title>
+    <style>
+        @font-face {
+            font-display: optional;
+            font-family: 'Inter';
+            font-style: normal;
+            font-weight: 100;
+            src: url('Inter.woff2') format('woff2');
+        }
+
+        body {
+            align-items: center;
+            background: hsl(246deg 10% 18% / 100%);
+            color: hsl(0deg 0% 98% / 100%);
+            display: grid;
+            font: 100 calc(22pt + 4vw) / 1 Inter, system-ui, sans-serif;
+            height: 100vh;
+            justify-items: center;
+            margin: 0;
+            user-select: none;
+            width: 100vw;
+        }
+    </style>
+</head>
+<body>
+    <time></time>
+    <script>
+        /* Render current time */
+        (update = function update() {
+            const locale = [];
+
+            document.querySelector('time').innerHTML = new Date().toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
+            setTimeout(update, 60000 - (Date.now() % 60000));
+        })();
+    </script>
+</body>
+</html>
