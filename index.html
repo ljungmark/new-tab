@@ -3,13 +3,14 @@
 <head>
     <meta charset="utf-8">
     <title>New Tab</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <style>
         @font-face {
             font-display: optional;
-            font-family: 'Inter';
-            font-style: normal;
-            font-weight: 100;
-            src: url('Inter.woff2') format('woff2');
+            font-family: 'Until I Die';
+            src: url('untilidie.woff2') format('woff2');
         }
 
         body {
@@ -17,7 +18,7 @@
             background: linear-gradient(180deg, hsl(246.7deg 9.7% 18.2% / 100%), hsl(209.1deg 43.2% 15.9% / 100%));
             color: hsl(0deg 0% 98% / 100%);
             display: grid;
-            font: 100 calc(22pt + 4vw) / 1 Inter, system-ui, sans-serif;
+            font: calc(22pt + 8vw) / 1 'Until I Die';
             height: 100vh;
             justify-items: center;
             margin: 0;
@@ -29,11 +30,9 @@
 <body>
     <time></time>
     <script>
-        /* Render current time */
+        const time = document.querySelector('time');
         (update = function update() {
-            const locale = [];
-
-            document.querySelector('time').innerHTML = new Date().toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
+            time.innerHTML = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
             setTimeout(update, 60000 - (Date.now() % 60000));
         })();
     </script>
