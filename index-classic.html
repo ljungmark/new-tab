@@ -4,14 +4,18 @@
     <meta charset="utf-8">
     <title>New Tab</title>
     <style>
-        html {
-            transition: background 1000ms;
+        @font-face {
+            font-display: swap;
+            font-family: 'Geist';
+            src: url('geist.woff2') format('woff');
         }
+
         body {
             align-content: center;
-            background: linear-gradient(180deg, transparent, hsl(209.1deg 43.2% 15.9% / 100%));
+            background: linear-gradient(180deg, hsl(246.7deg 9.7% 18.2% / 100%), hsl(209.1deg 43.2% 15.9% / 100%));
             color: hsl(220deg 24% 7% / 100%);
             display: grid;
+            font: clamp(12pt, calc(140px + 8vw), 14pt) / 1 'Geist';
             height: 100vh;
             justify-items: center;
             margin: 0;
@@ -36,6 +40,10 @@
                     animation: period 1000ms 800ms cubic-bezier(0.5, 1, 0.89, 1) forwards;
                     fill: transparent;
                 }
+            }
+
+            & time {
+                display: none;
             }
         }
 
@@ -102,14 +110,13 @@
             <path class="dot" d="M714.1 356.5c-4 4.5-4 7.6 0 10.9 3.7 3.2 5.8 3.3 9.3.5 2.3-1.8 2.7-2.8 2.4-6.3-.3-3.6-.7-4.3-4.4-6.3l-4.2-2.3-3.1 3.5z"/>
             <path class="period" d="M1592.7 484.1c-2.3 1.3-4.7 6.8-4.7 10.7 0 3 3.9 7.5 7.5 8.6 3.3.9 9.7-3.4 11.3-7.6 1.2-3.1 1.2-4.3.2-6.8-2.1-5.1-9.6-7.6-14.3-4.9z"/>
         </svg>
+        <time></time>
     </section>
     <script>
-        let hue = 0;
-        const html = document.querySelector('html');
+        const time = document.querySelector('time');
         (update = function update() {
-            html.style.background = `hsl(${hue}deg 76% 38% / 100%)`;
-            hue = (hue + 10) % 361;
-            setTimeout(update, 1000 - (Date.now() % 1000));
+            time.innerHTML = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            setTimeout(update, 60000 - (Date.now() % 60000));
         })();
     </script>
 </body>
