@@ -5,6 +5,7 @@
     <title>New Tab</title>
     <style>
         html {
+            background: hsl(0deg 0% 100% / 100%);
             transition: background 1000ms;
         }
         body {
@@ -147,7 +148,7 @@
         const shadows = document.querySelector('.shadows');
 
         (hues = function hues() {
-            html.style.background = `color-mix(in hsl, hsl(${hue}deg 76% 38% / 100%), white 10%)`;
+            html.style.background = `color-mix(in hsl, hsl(${hue}deg 76% 38% / 100%) 90%, hsl(0deg 0% 100% / 100%))`;
             hue = (hue + 10) % 361;
             setTimeout(hues, 1000 - (Date.now() % 1000));
         })();
