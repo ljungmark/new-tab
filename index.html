@@ -19,22 +19,34 @@
             user-select: none;
             width: 100vw;
 
-
-            .effect {
-                filter: blur(14rem);
+            & .effect {
+                display: grid;
+                filter: blur(4rem);
                 grid-column: 1;
                 grid-row: 1;
                 height: 100vh;
                 width: 100vw;
 
-                & > div {
-                    background-image: radial-gradient(circle at center, color-mix(in hsl, hsl(209.1deg 43.2% 15.9% / 100%) 25%, transparent 20%), hsl(209.1deg 43.2% 15.9% / 100%));
-                    height: 100%;
-                    transition: clip-path 20000ms linear;
+                & div {
+                    grid-column: 1;
+                    grid-row: 1;
+                    height: 100vh;
+                    width: 100vw;
+
+                    &.landscape {
+                        background-image: radial-gradient(circle at center, color-mix(in hsl, hsl(209deg 43% 46% / 100%) 25%, transparent 20%), hsl(209deg 43% 16% / 60%));
+                        opacity: 0.5;
+                        transition: clip-path 17420ms linear;
+                    }
+
+                    &.shadows {
+                        background-image: radial-gradient(circle at center, color-mix(in hsl, hsl(209deg 43% 16% / 100%) 25%, transparent 20%), hsl(209deg 43% 16% / 60%));
+                        transition: clip-path 25020ms linear;
+                    }
                 }
             }
 
-            .gist {
+            & .gist {
                 grid-column: 1;
                 grid-row: 1;
             }
@@ -118,7 +130,8 @@
 </head>
 <body>
     <div class="effect">
-        <div></div>
+        <div class="landscape"></div>
+        <div class="shadows"></div>
     </div>
     <section class="gist">
         <svg class="signature" xmlns="http://www.w3.org/2000/svg" version="1.0" viewBox="0 0 1657 798">
@@ -130,23 +143,38 @@
     <script>
         let hue = 0;
         const html = document.querySelector('html');
-        (update = function update() {
+        const landscape = document.querySelector('.landscape');
+        const shadows = document.querySelector('.shadows');
+
+        (hues = function hues() {
             html.style.background = `color-mix(in hsl, hsl(${hue}deg 76% 38% / 100%), white 10%)`;
             hue = (hue + 10) % 361;
-            setTimeout(update, 1000 - (Date.now() % 1000));
+            setTimeout(hues, 1000 - (Date.now() % 1000));
         })();
 
-        (polygon = function polygon() {
-                let points = [];
-                for (let i = 0; i < 18; i++) {
-                    const x = (Math.random() * 100).toFixed(2) + '%';
-                    const y = (Math.random() * 100).toFixed(2) + '%';
-                    points.push(`${x} ${y}`);
-                }
-                document.querySelector('.effect > div').style.clipPath = `polygon(${points.join(', ')})`;
-            setTimeout(polygon, 20000 - (Date.now() % 20000));
+        (mist = function mist() {
+            let points = [];
+            for (let i = 0; i < 18; i++) {
+                const x = (Math.random() * 100).toFixed(2) + '%';
+                const y = (Math.random() * 100).toFixed(2) + '%';
+                points.push(`${x} ${y}`);
+            }
+            landscape.style.clipPath = `polygon(${points.join(', ')})`;
+
+            setTimeout(mist, 17420 - (Date.now() % 17420));
         })();
 
+        (figures = function figures() {
+            let points = [];
+            for (let i = 0; i < 14; i++) {
+                const x = (Math.random() * 100).toFixed(2) + '%';
+                const y = (Math.random() * 100).toFixed(2) + '%';
+                points.push(`${x} ${y}`);
+            }
+            shadows.style.clipPath = `polygon(${points.join(', ')})`;
+
+            setTimeout(figures, 25020 - (Date.now() % 25020));
+        })();
     </script>
 </body>
 </html>
