@@ -35,7 +35,7 @@
                     width: 100vw;
 
                     &.landscape {
-                        background-image: radial-gradient(circle at center, color-mix(in hsl, hsl(209deg 43% 46% / 100%) 25%, transparent 20%), hsl(209deg 43% 16% / 60%));
+                        background-image: radial-gradient(circle at center, color-mix(in hsl, hsl(209deg 43% 46% / 100%) 25%, transparent 20%), hsl(209deg 43% 36% / 25%));
                         opacity: 0.5;
                         transition: clip-path 17420ms linear;
                     }
@@ -142,7 +142,7 @@
         </svg>
     </section>
     <script>
-        let hue = 0;
+        let hue = Math.floor(Math.random() * 360) + 1;
         const html = document.querySelector('html');
         const landscape = document.querySelector('.landscape');
         const shadows = document.querySelector('.shadows');
@@ -153,29 +153,32 @@
             setTimeout(hues, 1000 - (Date.now() % 1000));
         })();
 
-        (mist = function mist() {
+        function polygon(count) {
             let points = [];
-            for (let i = 0; i < 18; i++) {
+            for (let i = 0; i < count; i++) {
                 const x = (Math.random() * 100).toFixed(2) + '%';
                 const y = (Math.random() * 100).toFixed(2) + '%';
                 points.push(`${x} ${y}`);
             }
-            landscape.style.clipPath = `polygon(${points.join(', ')})`;
+            return points.join(', ');
+        }
 
-            setTimeout(mist, 17420 - (Date.now() % 17420));
-        })();
+        function updateLandscape() {
+            landscape.style.clipPath = `polygon(${polygon(18)})`;
+        }
 
-        (figures = function figures() {
-            let points = [];
-            for (let i = 0; i < 14; i++) {
-                const x = (Math.random() * 100).toFixed(2) + '%';
-                const y = (Math.random() * 100).toFixed(2) + '%';
-                points.push(`${x} ${y}`);
-            }
-            shadows.style.clipPath = `polygon(${points.join(', ')})`;
+        function updateShadows() {
+            shadows.style.clipPath = `polygon(${polygon(14)})`;
+        }
 
-            setTimeout(figures, 25020 - (Date.now() % 25020));
-        })();
+        /* Without this, the polygons won't "move" on initial page load. */
+        updateLandscape();
+        updateShadows();
+        setTimeout(updateLandscape, 1);
+        setTimeout(updateShadows, 1);
+
+        setInterval(updateLandscape, 17420);
+        setInterval(updateShadows, 25020);
     </script>
 </body>
 </html>
